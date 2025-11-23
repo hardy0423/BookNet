@@ -1,0 +1,16 @@
+# Configuration spécifique pour le profil Spring actif
+spring:
+  profiles:
+    active: dev   # Profil utilisé : dev (développement)
+  servlet:
+    multipart:
+      max-file-size: 50MB   # Taille maximale des fichiers uploadés
+
+# Configuration de Springdoc OpenAPI
+springdoc:
+  default-produces-media-type: application/json   # Définit le type de réponse par défaut
+
+# Configuration du serveur Spring Boot
+server:
+  servlet:
+    context-path: /api/v1/   # Préfixe commun pour toutes les URLs de l'API
