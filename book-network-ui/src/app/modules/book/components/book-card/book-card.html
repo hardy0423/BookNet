@@ -1,0 +1,99 @@
+<div
+  class="w-80 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 hover:shadow-lg"
+  [class]="book.shareable
+    ? 'border-2 border-green-500'
+    : book.archived
+      ? 'border-2 border-yellow-500'
+      : 'border border-gray-200'"
+>
+  <!-- Image -->
+  <img
+    height="200"
+    [src]="bookCover"
+    class="w-full h-48 object-cover"
+    [alt]="book.title"
+  >
+
+  <!-- Card Body -->
+  <div class="p-4 max-h-40 overflow-y-auto">
+    <!-- Title -->
+    <h5 class="text-lg font-bold text-gray-800 truncate mb-1">
+      <i class="fa-solid fa-book w-4 text-center mr-2 text-blue-600"></i>
+      {{book.title}}
+    </h5>
+
+    <!-- Author -->
+    <h5 class="text-sm text-gray-600 mb-1">
+      <i class="fa-solid fa-user-check w-4 text-center mr-2 text-green-600"></i>
+      {{ book.authorName }}
+    </h5>
+
+    <!-- ISBN -->
+    <h6 class="text-sm text-gray-600 mb-1">
+      <i class="fas fa-code w-4 text-center mr-2 text-purple-600"></i>
+      {{ book.isbn }}
+    </h6>
+
+    <!-- Owner -->
+    <h6 class="text-sm text-gray-600 mb-3">
+      <i class="fas fa-user w-4 text-center mr-2 text-orange-600"></i>
+      {{ book.owner }}
+    </h6>
+
+    <hr class="my-3 border-gray-200">
+
+    <!-- Synopsis -->
+    <p class="card-text text-sm text-gray-700 leading-relaxed">
+      {{book.synopsis}}
+    </p>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="px-4 py-3 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
+    <!-- Rating -->
+    <div class="flex items-center gap-2">
+      <app-rating [rating]="book.rate || 0"></app-rating>
+      <span class="font-bold text-gray-700 text-sm" *ngIf="(book.rate || 0) > 0">
+        {{book.rate}}
+      </span>
+    </div>
+
+    <!-- Actions - User View -->
+    <div class="flex gap-3" *ngIf="!manage">
+      <i
+        (click)="onShowDetails()"
+        class="fas fa-circle-info text-blue-600 hover:text-blue-800 cursor-pointer transition-colors duration-150 text-lg"
+        title="View details"
+      ></i>
+      <i
+        (click)="onBorrow()"
+        class="fas fa-list-check text-green-600 hover:text-green-800 cursor-pointer transition-colors duration-150 text-lg"
+        title="Borrow book"
+      ></i>
+      <i
+        (click)="onAddToWaitingList()"
+        class="fas fa-heart text-red-500 hover:text-red-700 cursor-pointer transition-colors duration-150 text-lg"
+        title="Add to waiting list"
+      ></i>
+    </div>
+
+    <!-- Actions - Manage View -->
+    <div class="flex gap-3" *ngIf="manage">
+      <i
+        (click)="onEdit()"
+        class="fas fa-edit text-green-600 hover:text-green-800 cursor-pointer transition-colors duration-150 text-lg"
+        title="Edit book"
+      ></i>
+      <i
+        (click)="onShare()"
+        class="fas fa-share-nodes text-blue-600 hover:text-blue-800 cursor-pointer transition-colors duration-150 text-lg"
+        title="Share book"
+      ></i>
+      <i
+        (click)="onArchive()"
+        class="fas fa-archive text-red-500 hover:text-red-700 cursor-pointer transition-colors duration-150 text-lg"
+        title="Archive book"
+      ></i>
+    </div>
+  </div>
+</div>

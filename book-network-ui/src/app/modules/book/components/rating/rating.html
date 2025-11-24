@@ -1,0 +1,17 @@
+<!-- rating.component.html -->
+<div class="flex items-center gap-1">
+  <!-- Full Stars -->
+  <ng-container *ngFor="let _ of [].constructor(fullStars); let i = index">
+    <i class="fas fa-star text-yellow-400 text-lg"></i>
+  </ng-container>
+
+  <!-- Half Star -->
+  <ng-container *ngIf="hasHalfStar">
+    <i class="fas fa-star-half-alt text-yellow-400 text-lg"></i>
+  </ng-container>
+
+  <!-- Empty Stars -->
+  <ng-container *ngFor="let _ of [].constructor(emptyStars); let i = index">
+    <i class="far fa-star text-gray-300 text-lg"></i>
+  </ng-container>
+</div>

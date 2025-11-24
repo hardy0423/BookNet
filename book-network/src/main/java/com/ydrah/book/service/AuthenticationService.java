@@ -72,7 +72,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(registerUserDto.getPassword()))
                 .roles(Set.of(userRole))
                 .accountLocked(false)
-                .accountEnabled(true)
+                .accountEnabled(false)
                 .build();
         userRepository.save(user);
 
@@ -165,7 +165,4 @@ public class AuthenticationService {
         savedToken.setValidatedAt(LocalDate.from(LocalDateTime.now()));
         tokenRepository.save(savedToken);
     }
-
-
-
 }

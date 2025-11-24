@@ -15,7 +15,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             SELECT
             (COUNT (*) > 0) AS isBorrowed
             FROM BookTransactionHistory bookTransactionHistory
-            WHERE bookTransactionHistory.userId = :userId
+            WHERE bookTransactionHistory.user.id = :userId
             AND bookTransactionHistory.book.id = :bookId
             AND bookTransactionHistory.returnApproved = false
             """)
@@ -33,7 +33,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
     @Query("""
             SELECT transaction
             FROM BookTransactionHistory  transaction
-            WHERE transaction.userId = :userId
+            WHERE transaction.user.id = :userId
             AND transaction.book.id = :bookId
             AND transaction.returned = false
             AND transaction.returnApproved = false
@@ -51,15 +51,17 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
     Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 
     @Query("""
-            SELECT history
-            FROM BookTransactionHistory history
-            WHERE history.userId = :userId
-            """)
-    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable, Integer  userId);
+        SELECT history
+        FROM BookTransactionHistory history
+        WHERE history.user.id = :userId
+        """)
+    Page<BookTransactionHistory> findAllBorrowedBooks(@Param("userId") Integer userId, Pageable pageable);
+
     @Query("""
-            SELECT history
-            FROM BookTransactionHistory history
-            WHERE history.book.createdBy = :userId
-            """)
-    Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, Integer userId);
+        SELECT history
+        FROM BookTransactionHistory history
+        WHERE history.book.createdBy = :userId
+        """)
+    Page<BookTransactionHistory> findAllReturnedBooks(@Param("userId") Integer userId, Pageable pageable);
+
 }

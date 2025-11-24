@@ -1,0 +1,135 @@
+<h3 class="text-xl font-semibold text-gray-800 mb-4">Books list</h3>
+
+<!-- Alert Message -->
+<div
+  *ngIf="message"
+  class="rounded-lg p-4 mb-4 transition-all duration-300 border"
+  [class.bg-red-100]="level==='error'"
+  [class.bg-green-100]="level==='success'"
+  [class.border-red-400]="level==='error'"
+  [class.border-green-400]="level==='success'"
+  [class.text-red-700]="level==='error'"
+  [class.text-green-700]="level==='success'"
+  role="alert"
+>
+  <p class="font-medium">{{message}}</p>
+</div>
+
+<hr class="my-6 border-gray-300">
+
+<!-- Books Grid -->
+<div class="flex justify-start gap-4 flex-wrap">
+  <app-book-card
+    *ngFor="let book of bookResponse.content"
+    [book]="book"
+    (borrow)="borrowBook($event)"
+    (details)="displayBookDetails($event)"
+  ></app-book-card>
+</div>
+
+<!-- Pagination -->
+<div class="flex justify-center mt-6">
+  <nav aria-label="Page navigation">
+    <ul class="flex items-center space-x-1">
+      <!-- First Page -->
+      <li>
+        <a
+          (click)="goToFirstPage()"
+          class="flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 transition-all duration-200"
+          [class.bg-gray-100]="page === 0"
+          [class.text-gray-400]="page === 0"
+          [class.cursor-not-allowed]="page === 0"
+          [class.bg-white]="page !== 0"
+          [class.text-gray-700]="page !== 0"
+          [class.hover:bg-gray-50]="page !== 0"
+          [class.hover:border-gray-400]="page !== 0"
+          [class.cursor-pointer]="page !== 0"
+          href="javascript:void(0)"
+          aria-label="First page"
+        >
+          <i class="fa-solid fa-angles-left text-sm"></i>
+        </a>
+      </li>
+
+      <!-- Previous Page -->
+      <li>
+        <a
+          (click)="goToPreviousPage()"
+          class="flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 transition-all duration-200"
+          [class.bg-gray-100]="page === 0"
+          [class.text-gray-400]="page === 0"
+          [class.cursor-not-allowed]="page === 0"
+          [class.bg-white]="page !== 0"
+          [class.text-gray-700]="page !== 0"
+          [class.hover:bg-gray-50]="page !== 0"
+          [class.hover:border-gray-400]="page !== 0"
+          [class.cursor-pointer]="page !== 0"
+          href="javascript:void(0)"
+          aria-label="Previous page"
+        >
+          <i class="fa-solid fa-angle-left text-sm"></i>
+        </a>
+      </li>
+
+      <!-- Page Numbers -->
+      <li *ngFor="let pageIndex of pages">
+        <a
+          (click)="gotToPage(pageIndex)"
+          class="flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 transition-all duration-200 font-medium"
+          [class.bg-blue-600]="page === pageIndex"
+          [class.border-blue-600]="page === pageIndex"
+          [class.text-white]="page === pageIndex"
+          [class.cursor-default]="page === pageIndex"
+          [class.bg-white]="page !== pageIndex"
+          [class.text-gray-700]="page !== pageIndex"
+          [class.hover:bg-gray-50]="page !== pageIndex"
+          [class.hover:border-gray-400]="page !== pageIndex"
+          [class.cursor-pointer]="page !== pageIndex"
+          href="javascript:void(0)"
+        >
+          {{ pageIndex + 1 }}
+        </a>
+      </li>
+
+      <!-- Next Page -->
+      <li>
+        <a
+          (click)="goToNextPage()"
+          class="flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 transition-all duration-200"
+          [class.bg-gray-100]="isLastPage"
+          [class.text-gray-400]="isLastPage"
+          [class.cursor-not-allowed]="isLastPage"
+          [class.bg-white]="!isLastPage"
+          [class.text-gray-700]="!isLastPage"
+          [class.hover:bg-gray-50]="!isLastPage"
+          [class.hover:border-gray-400]="!isLastPage"
+          [class.cursor-pointer]="!isLastPage"
+          href="javascript:void(0)"
+          aria-label="Next page"
+        >
+          <i class="fa-solid fa-chevron-right text-sm"></i>
+        </a>
+      </li>
+
+      <!-- Last Page -->
+      <li>
+        <a
+          (click)="goToLastPage()"
+          class="flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 transition-all duration-200"
+          [class.bg-gray-100]="isLastPage"
+          [class.text-gray-400]="isLastPage"
+          [class.cursor-not-allowed]="isLastPage"
+          [class.bg-white]="!isLastPage"
+          [class.text-gray-700]="!isLastPage"
+          [class.hover:bg-gray-50]="!isLastPage"
+          [class.hover:border-gray-400]="!isLastPage"
+          [class.cursor-pointer]="!isLastPage"
+          href="javascript:void(0)"
+          aria-label="Last page"
+        >
+          <i class="fa-solid fa-angles-right text-sm"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

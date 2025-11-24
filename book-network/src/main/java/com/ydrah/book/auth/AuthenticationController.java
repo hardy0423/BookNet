@@ -37,12 +37,14 @@ public class AuthenticationController {
 
         ApiResponse apiResponse = ApiResponse.builder()
                 .message("User registered successfully!")
+                .statusCode(HttpStatus.OK.value())
                 .build();
         return ResponseEntity.ok(apiResponse);
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<ApiResponse> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) throws MessagingException {
+    public ResponseEntity<ApiResponse> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
+        System.out.println("Authentication request received for email: " + authenticationRequest.getEmail());
         ApiResponse res = authenticationService.authenticate(authenticationRequest);
         return ResponseEntity.ok(res);
     }
@@ -53,6 +55,7 @@ public class AuthenticationController {
 
         ApiResponse response = ApiResponse.builder()
                 .message("Account activated successfully!")
+                .statusCode(HttpStatus.OK.value())
                 .build();
 
         return ResponseEntity.ok(response);

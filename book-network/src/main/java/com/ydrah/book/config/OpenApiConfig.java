@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
                 license = @License(name = "MIT", url = "https://opensource.org/licenses/MIT")
         ),
         servers = {
-                @Server(description = "Local", url = "http://localhost:8080/api/v1"),
+                @Server(description = "Local", url = "http://localhost:8088/api/v1"),
                 @Server(description = "Production", url = "https://example.com/api/v1")
         },
         security = {
